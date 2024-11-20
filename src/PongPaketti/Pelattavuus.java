@@ -1,6 +1,5 @@
 package PongPaketti;
 
-//tässä importataan kaikki mahdollinen java diibadaaba jotta saadaan asiota (ehkä) toimimaan
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -13,52 +12,47 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
-	
-	// MUUTTUJIEN ALUSTUSTA
-	
-	public static pelaaja pel = new pelaaja();
-	public static tietokone tie = new tietokone();
-	public static Pisteet p = new Pisteet();
-	Random rnd = new Random();
 
-	// ?
+	PlayerBase p1 = new P1(10, 200, 100);
+	PlayerBase cpu = new CPU(975, 200, 100);
+	//p1.move()
+	//cpu.move()
+
+	public static Points points = new Points();
 	private boolean play = false;
-	
-	// ?
 	private Timer time;
 	private int delay = 8;
+	Random rnd = new Random();
 	
-	// pallo
+	// pallon muuttujat
 	public int ballPosX = 500;
 	public int ballPosY = 250;
 	private int ballDirX = 2;
 	private int ballDirY = -4;
 	private int ballDim = 30;
 	
-	// maalit
+	// maalien rajasijainnit
 	public int maaliVas = 0;
 	public int maaliOik = 1000;
 	
-	// muuttuja jonka suuretessa pallo pomppaa laudasta tietyn verran, jotta peli pysyy refresh -raten mukana
-	// eikä pallo mene laudan läpi, kun "intersects" ei kerkeä rekisteröimään osumaa.
+	// Muuttuja jonka suuretessa pallo pomppaa laudasta tietyn verran, jotta peli pysyy refresh -raten mukana
+	// eikä pallo mene laudan läpi, jos "intersects" ei kerkeä rekisteröimään osumaa.
 	public int bounceBack = 0;
 	
-	// muuttuja joka muuttuu kun jompi kumpi pelaajista voittaa
+	// muuttuja joka vastaa uuden pelin luonnista
 	public boolean uusiPeli = false; 
 
-	// tekee ?
+	// pelin alustus
 	public Pelattavuus() {
 		
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		
 		time = new Timer(delay, this);
 		time.start();
 		
 		// alustetaan pallolle satunnainen liikkumissuunta
 		rnd.nextInt(4);
-		
 		if(rnd.nextInt(4) == 0) {
 			ballDirX = -2;
 			ballDirY = 2;
@@ -75,13 +69,9 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 			ballDirX = -2;
 			ballDirY = -2;
 		}
-
 	}
 	
-
-//---------------------------------------------------------
-	
-	// ruutu ja sen grafiikka
+	// peliruudun grafiikkapiirto
 	public void paint(Graphics g) {
 		
 		// tausta
@@ -104,67 +94,29 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 		
 		// vasen lauta
 		g.setColor(Color.blue);
-		g.fillRect(pel.playerVasX, pel.playerVasY, 20, pel.playerVasPituus);
+		g.fillRect(p1.posX, p1.posY, 20, p1.boardHeight);
 		
 		// oikea lauta
 		g.setColor(Color.blue);
-		g.fillRect(tie.playerOikX, tie.playerOikY, 20, tie.playerOikPituus);
+		g.fillRect(cpu.posX, cpu.posY, 20, cpu.boardHeight);
 		
 		//pallo
 		g.setColor(Color.white);
 		g.fillOval(ballPosX, ballPosY, ballDim, ballDim);
-		
-		// kokeilin tehdä pelaajien pisteet graafisesti pelinäyttöön mutta se osoittautui
-		// sekä vaikeaksi, että epätoimivaksi
-		
-		/*if(p.scoreVas == 0) {
-			g.setColor(Color.white);
-			g.fillRect(400, 50, 50, 50);
-			g.setColor(Color.black);
-			g.fillRect(405, 55, 40, 40);
-		}
-		
-		if(p.scoreVas == 0) {
-			g.setColor(Color.white);
-			g.fillRect(600, 50, 50, 50);
-			g.setColor(Color.black);
-			g.fillRect(605, 55, 40, 40);
-		}
-		
-		if(p.scoreVas == 1) {
-			g.setColor(Color.white);
-			g.fillRect(400, 50, 10, 50);
-		}
-		
-		if(p.scoreOik == 1) {
-			g.setColor(Color.white);
-			g.fillRect(600, 50, 10, 50);
-		} */
-	
-		
+
 		g.dispose();
-		
 	}
 	
-	
-//-----------------------------------------------------------------
-	
-	// pallon liikkuminen ja muuta peliin liittyvää
+	// pallon liikkuminen ja muuta pelin logiikkaa
 	public void actionPerformed(ActionEvent e) {
 		time.start();
-		
-		Rectangle rect1 = new Rectangle(pel.playerVasX, pel.playerVasY, 20, pel.playerVasPituus);
-		Rectangle rect2 = new Rectangle(tie.playerOikX, tie.playerOikY, 20, tie.playerOikPituus);
+		Rectangle rect1 = new Rectangle(p1.posX, p1.posY, 20, p1.boardHeight);
+		Rectangle rect2 = new Rectangle(cpu.posX, cpu.posY, 20, cpu.boardHeight);
 		Rectangle ballRect = new Rectangle(ballPosX, ballPosY, ballDim, ballDim);
-		
-		
 		
 		if(play) {
 			
-			
-			
 			if(uusiPeli == true) {
-				
 				// jokaisen maalin jälkeen muutetaan pallolle taas uusi satunnainen liikkumissuunta
 				rnd.nextInt(4);
 				
@@ -184,7 +136,6 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 					ballDirX = -2;
 					ballDirX = -2;
 				}
-				
 				uusiPeli = false;
 			}
 			
@@ -195,7 +146,6 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 			if(ballRect.intersects(rect1)) {
 				ballPosX += 15+bounceBack;
 				ballDirX = -ballDirX;
-				
 				if(ballDirX < 0) {
 					ballDirX -= 1;
 					bounceBack += 2;
@@ -204,14 +154,12 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 					ballDirX += 1;
 					bounceBack += 2;
 				}
-				
 			}
 			
 			// jos pallo osuu oikeaan lautaan
 			if(ballRect.intersects(rect2)) {
 				ballPosX -= 15+bounceBack;
 				ballDirX = -ballDirX;
-				
 				if(ballDirX < 0) {
 					ballDirX -= 1;
 					bounceBack += 2;
@@ -221,8 +169,7 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 					bounceBack += 2;
 				}
 			}
-			
-			
+
 			if(ballPosY < 10) {
 				ballDirY = -ballDirY;
 			}
@@ -231,18 +178,15 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 				ballDirY = -ballDirY;
 			}
 			
-			// jos tulee maali, restarttaa peli
+			// maalin tullessa
 			if(ballPosX < maaliVas || ballPosX > maaliOik) {
 				restartGame();	
 			}
-			
 		}
 		repaint();
-		
 	}
-//------------------------------------------------------------------
 	
-	// metodi jota kutsutaan kun pelissä tehdään maali. Se muuttaa lautojen kokoa pistetilanteen mukaan
+	// Metodi jota kutsutaan kun pelissä tehdään maali. Se muuttaa lautojen kokoa pistetilanteen mukaan
 	// sekä muuttaa kaikki tarvittavat muuttujat ( kuten pallon sijainti ja nopeus ) takaisin oletusarvoonsa.
 	public void restartGame() {
 		
@@ -250,143 +194,107 @@ public class Pelattavuus extends JPanel implements KeyListener, ActionListener{
 			if (ballPosX >= maaliOik) {
 				uusiPeli = true;
 				bounceBack = 0;
-				p.updateScoreVas();
-				System.out.println("Pelin tilanne: "+p.returnScoreVas()+" - "+p.returnScoreOik());
-			}	
-			
+				points.updateScoreVas();
+				System.out.println("Pelin tilanne: "+ points.returnScoreVas()+" - "+ points.returnScoreOik());
+			}
 			// tulostaa pelitilanteen pallon mennessä vasempaan maaliin
 			else if(ballPosX <= maaliVas){
 				uusiPeli = true;
 				bounceBack = 0;
-				p.updateScoreOik();
-				System.out.println("Pelin tilanne: "+p.returnScoreVas()+" - "+p.returnScoreOik());
-		
+				points.updateScoreOik();
+				System.out.println("Pelin tilanne: "+ points.returnScoreVas()+" - "+ points.returnScoreOik());
 			}
 			
-			//pallon sijainnin nollaaminen
+			// pallon sijainnin nollaaminen
 			ballPosX = 500;
 			ballPosY = 250;
 			ballDirX = -2;
 			ballDirY = -4;
 			
 			// muuttavat laudan kokoja pelitilanteen mukaan
-			if(p.scoreVas == p.scoreOik && p.scoreVas != 2 && p.scoreOik != 2) {
-				tie.playerVasPituus = 100;
-				tie.playerOikPituus = 100;
+			if(points.scoreVas == points.scoreOik && points.scoreVas != 2 && points.scoreOik != 2) {
+				p1.boardHeight = 100;
+				cpu.boardHeight = 100;
 			}
-			
-			if(p.scoreVas == 2 && p.scoreOik == 2) {
-				pel.playerVasPituus = 50;
-				tie.playerOikPituus = 50;
+			if(points.scoreVas == 2 && points.scoreOik == 2) {
+				p1.boardHeight = 50;
+				cpu.boardHeight = 50;
 			}
-			
-			if(p.scoreVas < p.scoreOik) {
-				pel.playerVasPituus = 170;
+			if(points.scoreVas < points.scoreOik) {
+				p1.boardHeight = 170;
 			}
-			
-			if(p.scoreVas > p.scoreOik) {
-				tie.playerOikPituus = 170;
+			if(points.scoreVas > points.scoreOik) {
+				cpu.boardHeight = 170;
 			}
 			
 			// pelaajan voittaessa tulostaa voittajan sekä aloittaa uuden pelin.
-			if(p.scoreVas == 3) {
+			if(points.scoreVas == 3) {
 				System.out.println("Vasen pelaaja voitti pelin!");
-				p.scoreOik = 0;
-				p.scoreVas = 0;
-				pel.playerVasPituus = 100;
-				tie.playerOikPituus = 100;
+				points.scoreOik = 0;
+				points.scoreVas = 0;
+				p1.boardHeight = 100;
+				cpu.boardHeight = 100;
 				System.out.println("------------------------------------------------------");
 				restartGame();
 			}
-			if(p.scoreOik == 3) {
+			if(points.scoreOik == 3) {
 				System.out.println("Oikea pelaaja voitti pelin!");
-				p.scoreOik = 0;
-				p.scoreVas = 0;
+				points.scoreOik = 0;
+				points.scoreVas = 0;
 
-				pel.playerVasPituus = 100;
-				tie.playerOikPituus = 100;
+				p1.boardHeight = 100;
+				cpu.boardHeight = 100;
 				System.out.println("------------------------------------------------------");
 				restartGame();
 			}
-			
 		}
 		
-	// metodit lautojen liikkumiseen, 1 = vasen, 2 = oikea.
-	public void moveRight1() {
+	// metodit lautojen liikkumiseen, 1 = vasen, 2 = oikea
+	public void moveP1_Up() {
 		play = true;
-		pel.playerVasY += 50;
+		p1.posY += 50;
 	}
 	
-	public void moveLeft1() {
+	public void moveP1_Down() {
 		play = true;
-		pel.playerVasY -= 50;
+		p1.posY -= 50;
 	}
 	
-	public void moveRight2() {
+	public void moveCPU_Up() {
 		play = true;
-		tie.playerOikY += 50;
+		cpu.posY += 50;
 	}
 	
-	public void moveLeft2() {
+	public void moveCPU_down() {
 		play = true;
-		tie.playerOikY -= 50;
+		cpu.posY -= 50;
 	}
 	
-//------------------------------------------------------------------
-	
-	// metodit jotka tunnistavat näppäinten painalluksen ja reagoivat sen mukaan
+	// funktiot jotka tunnistavat näppäinten painallukset ja reagoivat sen mukaan
 	public void keyPressed(KeyEvent e) {
-		
-		if(e.getKeyCode() == KeyEvent.VK_Z) {
-			if(pel.playerVasY + pel.playerVasPituus >= 500) {
-				pel.playerVasY = 495 - pel.playerVasPituus;
+
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
+			if(p1.posY < 10) {
+				p1.posY = 10;
 			}
 			else {
-				moveRight1();
+				moveP1_Down();
 			}
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_A) {
-			if(pel.playerVasY < 10) {
-				pel.playerVasY = 10;
+
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			if(p1.posY + p1.boardHeight >= 500) {
+				p1.posY = 495 - p1.boardHeight;
 			}
 			else {
-				moveLeft1();
-			}
-		}
-		
-				//-------------
-		
-		if(e.getKeyCode() == KeyEvent.VK_M) {
-			if(tie.playerOikY + tie.playerOikPituus >= 500) {
-				tie.playerOikY = 495 - tie.playerOikPituus;
-			}
-			else {
-				moveRight2();
-			}
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_K) {
-			if(tie.playerOikY < 10) {
-				tie.playerOikY = 10;
-			}
-			else {
-				moveLeft2();
+				moveP1_Up();
 			}
 		}
 	}
-			  //-------------
 	
 	public void keyReleased(KeyEvent e) {
-		
-		
 	}
 
-	
 	public void keyTyped(KeyEvent e) {
-		
-		
 	}
-//-----------------------------------------------------
-	
 }

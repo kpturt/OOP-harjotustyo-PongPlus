@@ -1,12 +1,11 @@
 package PongPaketti;
 
-public class Pisteet extends Pelattavuus {
+public class Points extends Pelattavuus {
 	
 	// pelaajien pistetilanne
 	public int scoreVas = 0;
 	public int scoreOik = 0;
 
-//---------------------------------
 	
 	// tarkistaa onko maali tehty,
 	// metodi ei kuitenkaan käytössä tällä hetkellä
@@ -17,8 +16,6 @@ public class Pisteet extends Pelattavuus {
 	public void update() {
 		this.checkIfScore();
 	}
-
-//---------------------------------
 	
 	// lisää vasemmalle pelaajalle pisteen
 	public void updateScoreVas(){
@@ -28,12 +25,10 @@ public class Pisteet extends Pelattavuus {
 	// lisää oikealle pelaajalle pisteen
 	public void updateScoreOik(){
 			scoreOik += 1;
-		
 	}
-//----------------------------------
 	
 	// palauttaa vasemman pelaajan pisteet
-		public int returnScoreVas(){
+	public int returnScoreVas(){
 			return scoreVas;
 		}
 		
