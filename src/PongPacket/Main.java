@@ -1,36 +1,49 @@
 package PongPacket;
 
 import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Welcome to Extreme Pong!");
+		System.out.println("Welcome to Pong+!");
 		System.out.println("Start the game and move your board using UP and DOWN arrows on your keyboard.");
 		System.out.println("------------------------------------------------------");
 
-		// Game logic, graphics, etc.
+		// game logic, graphics, etc.
 		GameLogic gameLogic = new GameLogic();
 		GameGraphics gameGraphics = new GameGraphics(gameLogic);
 
-		// Initialization of game frame
-		JFrame frame = new JFrame("Extreme Pong");
-		frame.setSize(1000, 600); // graphics implemented on increments of 10
-		frame.setTitle("Extreme Pong");
+		// initialization of game frame
+		JFrame frame = new JFrame("Pong+");
+		frame.setSize(916, 639); // 30x20 grid
+		frame.setTitle("Pong+");
 		frame.setResizable(false);
 		frame.setVisible(true);
+		frame.setFocusable(true);
+		frame.requestFocusInWindow();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//frame.add(gameLogic);
-		frame.add(gameGraphics);
+		// for getting frame size (900x600)
+//		Insets insets = frame.getInsets();
+//		int contentWidth = frame.getWidth() - insets.left - insets.right;
+//		int contentHeight = frame.getHeight() - insets.top - insets.bottom;
+//		System.out.println("Content width: " + contentWidth + ", Content height: " + contentHeight);
 
-		while(true){
-			gameLogic.update();
-			gameGraphics.repaint();
-			try{
-				Thread.sleep(16); // roughly 60 fps or 16ms per frame
-			} catch (InterruptedException e){
-				e.printStackTrace();
+		frame.add(gameGraphics);
+		frame.addKeyListener((KeyListener) gameLogic.p1);
+
+		new Thread(() -> {
+			while (true) {
+				gameLogic.update();      // Update game state
+				gameGraphics.repaint(); // Refresh the screen
+
+				try {
+					Thread.sleep(16);  // Approx. 60 FPS
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}
+		}).start();
 	}
 }

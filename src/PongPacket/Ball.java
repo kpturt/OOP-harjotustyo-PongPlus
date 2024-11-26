@@ -3,10 +3,10 @@ package PongPacket;
 import java.util.Random;
 
 public class Ball {
-    protected int posX;
-    protected int posY;
-    protected int dirY;
-    protected int dirX;
+    public int posX;
+    public int posY;
+    public int dirY;
+    public int dirX;
     Random rnd = new Random();
 
     public Ball(int posX, int posY, int dirX, int dirY){
@@ -52,23 +52,25 @@ public class Ball {
 
     // restarting position and direction
     public void restartBall(){
+        posX = 500;
+        posY = 300;
         // initializes random starting direction for the ball
         rnd.nextInt(4);
         if(rnd.nextInt(4) == 0) {
-            dirX = -1;
-            dirY = 1;
+            dirX = -2;
+            dirY = 2;
         }
         else if(rnd.nextInt(4) == 1){
-            dirX = 1;
-            dirY = -1;
+            dirX = 2;
+            dirY = -2;
         }
         else if(rnd.nextInt(4) == 2){
-            dirX = 1;
-            dirY = 1;
+            dirX = 2;
+            dirY = 2;
         }
         else if(rnd.nextInt(4) == 3){
-            dirX = -1;
-            dirY = -1;
+            dirX = -2;
+            dirY = -2;
         }
     }
 }

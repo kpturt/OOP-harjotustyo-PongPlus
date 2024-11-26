@@ -1,8 +1,8 @@
 package PongPacket;
 
-public class Points extends GameLogic {
-	protected int scoreP1 = 0;
-	protected int scoreCPU = 0;
+public class Points {
+	public int scoreP1 = 0;
+	public int scoreCPU = 0;
 
 	public void updateScoreP1(){
 			scoreP1 += 1;

@@ -1,6 +1,7 @@
 package PongPacket;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public abstract class PlayerBase implements KeyListener, ActionListener {
@@ -17,15 +18,14 @@ public abstract class PlayerBase implements KeyListener, ActionListener {
 	public void setBoardHeight(int boardHeight){
 		this.boardHeight = boardHeight;
 	}
+	public void setPosY(int posY) { this.posY = posY; }
 
 	public int getBoardHeight(){
 		return boardHeight;
 	}
 
-	public abstract void move(); // polymorphic behaviour for movement
-
 	public void restartBoard(){
-		posY = 300;
-		boardHeight = 100;
+		posY = 210;
+		boardHeight = 181;
 	}
 }

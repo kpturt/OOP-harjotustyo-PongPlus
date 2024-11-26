@@ -9,13 +9,6 @@ public class P1 extends PlayerBase {
     }
 
     @Override
-    public void move(){
-        // movement logic
-        //p1.posY += 50;
-        //p1.posY -= 50;
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
 
     }
@@ -27,23 +20,16 @@ public class P1 extends PlayerBase {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        if(e.getKeyCode() == KeyEvent.VK_UP) {
-//            if(p1.posY < 10) {
-//                p1.posY = 10;
-//            }
-//            else {
-//                moveP1_Down();
-//            }
-//        }
-//
-//        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-//            if(p1.posY + p1.boardHeight >= 500) {
-//                p1.posY = 495 - p1.boardHeight;
-//            }
-//            else {
-//                moveP1_Up();
-//            }
-//        }
+        if(e.getKeyCode() == KeyEvent.VK_UP) {
+            if(posY > 0){
+                posY -= 30;
+            }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if(posY < (600-boardHeight)){
+                posY += 30;
+            }
+        }
     }
 
     @Override
