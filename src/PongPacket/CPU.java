@@ -12,15 +12,15 @@ public class CPU extends PlayerBase{
         int centerY = posY + boardHeight / 2; // CPU paddle's center position
 
         if (centerY < ballY) {
-            posY += Math.min(5, ballY - centerY); // Move down towards ball
+            posY += Math.min(5, ballY - centerY); // move down towards ball
         } else if (centerY > ballY) {
-            posY -= Math.min(5, centerY - ballY); // Move up towards ball
+            posY -= Math.min(5, centerY - ballY); // move up towards ball
         }
 
-        // Ensure paddle stays within the screen bounds
+        // ensure CPU paddle stays within the screen bounds
         if (posY < 0) {
             posY = 0;
-        } else if (posY + boardHeight > 600) { // Assuming screen height = 600
+        } else if (posY + boardHeight > 600) {
             posY = 600 - boardHeight;
         }
     }

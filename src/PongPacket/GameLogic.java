@@ -29,16 +29,19 @@ public class GameLogic {
 
 	public void update(){
 
-		// Predict ball's next position
+		// update ball speed over time
+		ball.updateSpeed();
+
+		// predict ball's next position (for better collision detection)
 		int nextBallPosX = ball.posX + ball.dirX;
 		int nextBallPosY = ball.posY + ball.dirY;
 
-		// Update CPU paddle position first (to follow the ball)
+		// update CPU paddle position first (to follow the ball)
 		int targetCPUY = ball.posY + ball.dirY - (cpu.getBoardHeight() / 2);
 		cpu.posY = Math.max(0, Math.min(550 - cpu.getBoardHeight(), targetCPUY));
 		rectCPU.setLocation(cpu.posX, cpu.posY);
 
-		// Handle ball-paddle collisions
+		// handle ball-paddle collisions
 		if (new Rectangle(nextBallPosX, ball.posY, 50, 50).intersects(rectP1)) {
 			ball.dirX = Math.abs(ball.dirX); // Ensure ball bounces to the right
 			ball.posX = rectP1.x + rectP1.width; // Correct position to paddle's edge
@@ -53,24 +56,17 @@ public class GameLogic {
 		// update CPU paddle position to follow the ball
 		((CPU) cpu).move(ball.posY);
 
-		// ball bounce from P1 board
-		if(rectBall.intersects(rectP1)) {
-			ball.dirX = -ball.dirX;
+		// update ball's vertical position
+		if (nextBallPosY < 0 || nextBallPosY > 550) {
+			ball.dirY = -ball.dirY; // Bounce off the top or bottom walls
+		} else {
+			ball.posY = nextBallPosY;
 		}
 
-		// ball bounce from CPU board
-		if(rectBall.intersects(rectCPU)) {
-			ball.dirX = -ball.dirX;
-		}
-
-		// ball bounce from ceiling and floor
-		if(ball.posY < 0 || ball.posY > 550) {
-			ball.dirY = -ball.dirY;
-		}
-
-		// ball movement
+		// update ball's horizontal position (if no paddle collision occurred)
 		ball.posX += ball.dirX;
-		ball.posY += ball.dirY;
+
+		// update ball's rectangle for collision checks
 		rectBall.setLocation(ball.posX, ball.posY);
 
 		// score updates
@@ -85,7 +81,7 @@ public class GameLogic {
 			System.out.println("POINTS P1: "+ points.returnScoreP1()+" - CPU: "+ points.returnScoreCPU());
 		}
 
-		// win checking and board size updates
+		// win checking and board size updates based on score
 		if(goalScored){
 			if(points.scoreP1 == 3 || points.scoreCPU == 3) {
 				if(points.scoreP1 > points.scoreCPU){
