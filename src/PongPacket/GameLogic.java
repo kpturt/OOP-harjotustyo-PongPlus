@@ -29,9 +29,6 @@ public class GameLogic {
 
 	public void update(){
 
-		// update ball speed over time
-		ball.updateSpeed();
-
 		// predict ball's next position (for better collision detection)
 		int nextBallPosX = ball.posX + ball.dirX;
 		int nextBallPosY = ball.posY + ball.dirY;
@@ -68,6 +65,9 @@ public class GameLogic {
 
 		// update ball's rectangle for collision checks
 		rectBall.setLocation(ball.posX, ball.posY);
+
+		// update ball speed over time
+		ball.updateSpeed();
 
 		// score updates
 		if (ball.posX > 930 || ball.posX < -30) {
