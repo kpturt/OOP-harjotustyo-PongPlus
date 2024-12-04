@@ -31,7 +31,7 @@ public class Main {
 //		System.out.println("Content width: " + contentWidth + ", Content height: " + contentHeight);
 
 		frame.add(gameGraphics);
-		frame.addKeyListener((KeyListener) gameLogic.p1);
+		frame.addKeyListener(gameLogic.p1);
 
 		new Thread(() -> {
 			while (true) {

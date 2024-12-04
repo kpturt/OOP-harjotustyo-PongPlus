@@ -58,9 +58,10 @@ public class Ball {
 
     // restarting position and direction
     public void restartBall(){
-        posX = 500;
-        posY = 300;
+        posX = 425;
+        posY = 275;
         speedMultiplier = 1; // reset speed multiplier when round restarts
+        lastSpeedIncreaseTime = 0;
 
         // initializes a random starting direction for the ball on round start
         rnd.nextInt(4);

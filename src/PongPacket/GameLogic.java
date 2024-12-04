@@ -22,20 +22,26 @@ public class GameLogic {
 		cpu = new CPU(870, 210, 181);
 		rectCPU = new Rectangle(cpu.posX, cpu.posY, 31, cpu.boardHeight);
 
-		ball = new Ball(500, 300, 0, 0);
+		ball = new Ball(425, 275, 0, 0);
 		rectBall = new Rectangle(ball.posX, ball.posY, 30, 30);
 		ball.restartBall();
 	}
 
 	public void update(){
 
+		// P1 paddle movement
+		rectP1.setLocation(p1.posX, p1.posY);
+
+		// update CPU paddle position to follow the ball
+		((CPU) cpu).move(ball.posY);
+
 		// predict ball's next position (for better collision detection)
 		int nextBallPosX = ball.posX + ball.dirX;
 		int nextBallPosY = ball.posY + ball.dirY;
 
 		// update CPU paddle position first (to follow the ball)
-		int targetCPUY = ball.posY + ball.dirY - (cpu.getBoardHeight() / 2);
-		cpu.posY = Math.max(0, Math.min(550 - cpu.getBoardHeight(), targetCPUY));
+//		int targetCPUY = ball.posY + ball.dirY - (cpu.getBoardHeight() / 2);
+//		cpu.posY = Math.max(0, Math.min(550 - cpu.getBoardHeight(), targetCPUY));
 		rectCPU.setLocation(cpu.posX, cpu.posY);
 
 		// handle ball-paddle collisions
@@ -47,11 +53,7 @@ public class GameLogic {
 			ball.posX = rectCPU.x - 50; // Correct position to paddle's edge
 		}
 
-		// P1 paddle movement
-		rectP1.setLocation(p1.posX, p1.posY);
 
-		// update CPU paddle position to follow the ball
-		((CPU) cpu).move(ball.posY);
 
 		// update ball's vertical position
 		if (nextBallPosY < 0 || nextBallPosY > 550) {
