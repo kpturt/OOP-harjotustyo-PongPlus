@@ -1,11 +1,23 @@
-Extreme ping pong ohje
+# Pong+
 
-Vasen pelaaja liikuttaa lautaa näppäimillä A ja Z, oikea näppäimillä M ja K.
+A very simple and technical approach to the classic Pong game with an additional twist.
 
-Extreme pingpong -peli käynnistyy, kun jompikumpi pelaajista koskee laudan liikkumisnäppäimiin.
+- Game starts automatically and player controls their paddle with UP and DOWN arrows on their keyboard.
+- Score counting is displayed in the console.
+- Ball speed increases every five seconds and is reset on goal scored.
+- Player's and CPU's paddle sizes change based on score.
+- First to 3 points wins!
 
-Se pelaaja, kumpi saa ensin 3 pistettä, voittaa pelin.
+## Improvement ideas
+- Create a main menu.
+- Add score values graphically to the game screen.
+- Implement better CPU handling and different difficulty settings.
+  - sometimes CPU instantly loses to first ball toss or becomes unbeatable depending on paddle heights
+  - this could be done by extending new CPU's from PlayerBase
+- Update the game graphically such as adding a background, paddle and ball images.
+- New game / return to main menu option after a game ends.
+- Different game modes with new ball or paddle behaviours.
+- Or make it campaign/rogue-like such as by implementing "select a card" for power ups and/or add different stages and bosses.
 
-Kun toinen pelaaja on voittanut, uusi peli alkaa automaattisesti.
-
-Tulostiedoissa näkyy pelitilanne, sekä kumpi voitti pelin.
+## Additional notice
+This game was developed and tested on Windows 11. I ran into problems such as frame-rate stuttering and incorrect pixel calculations when I tested this on a Linux system (Fedora/Gnome).

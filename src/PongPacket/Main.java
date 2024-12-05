@@ -1,20 +1,18 @@
 package PongPacket;
 
 import javax.swing.JFrame;
-import java.awt.*;
-import java.awt.event.KeyListener;
 
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Pong+!");
-		System.out.println("Start the game and move your board using UP and DOWN arrows on your keyboard.");
+		System.out.println("Move your board using UP and DOWN arrows on your keyboard.");
 		System.out.println("------------------------------------------------------");
 
-		// game logic, graphics, etc.
+		// initialization of game logic and graphics
 		GameLogic gameLogic = new GameLogic();
 		GameGraphics gameGraphics = new GameGraphics(gameLogic);
 
-		// initialization of game frame
+		// initialization of game frame and its settings
 		JFrame frame = new JFrame("Pong+");
 		frame.setSize(916, 639); // 30x20 grid
 		frame.setTitle("Pong+");
@@ -35,11 +33,11 @@ public class Main {
 
 		new Thread(() -> {
 			while (true) {
-				gameLogic.update();      // Update game state
-				gameGraphics.repaint(); // Refresh the screen
+				gameLogic.update();      // update game state
+				gameGraphics.repaint(); // refresh screen graphics
 
 				try {
-					Thread.sleep(16);  // Approx. 60 FPS
+					Thread.sleep(16);  // approx. 60 FPS
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
