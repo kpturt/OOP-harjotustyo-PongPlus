@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="PingPongPeli kansio:jar">
-    <output-path>$PROJECT_DIR$/classes/artifacts/PingPongPeli_kansio_jar</output-path>
-    <root id="archive" name="PingPongPeli kansio.jar">
-      <element id="module-output" name="PingPongPeli kansio" />
-    </root>
-  </artifact>
-</component>

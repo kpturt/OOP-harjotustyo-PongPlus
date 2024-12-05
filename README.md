@@ -3,7 +3,8 @@
 A very simple and technical approach to the classic Pong game with an additional twist.
 
 - Game starts automatically and player controls their paddle with UP and DOWN arrows on their keyboard.
-- Score counting is displayed in the console.
+- Score counting is displayed in the console
+(I know it's not ideal but you can keep count of the score in your head and take it as an additional challenge).
 - Ball speed increases every five seconds and is reset on goal scored.
 - Player's and CPU's paddle sizes change based on score.
 - First to 3 points wins!
@@ -17,7 +18,7 @@ A very simple and technical approach to the classic Pong game with an additional
 - Update the game graphically such as adding a background, paddle and ball images.
 - New game / return to main menu option after a game ends.
 - Different game modes with new ball or paddle behaviours.
-- Or make it campaign/rogue-like such as by implementing "select a card" for power ups and/or add different stages and bosses.
+- Make the game campaign/rogue-like such as by implementing "select a card" for power ups and/or add different stages and bosses.
 
 ## Additional notice
-This game was developed and tested on Windows 11. I ran into problems such as frame-rate stuttering and incorrect pixel calculations when I tested this on a Linux system (Fedora/Gnome).
+This game was developed and tested on Windows 11. I ran into problems such as frame-rate stuttering and incorrect pixel calculations when I tested this on a Linux system (Fedora/Gnome). This problem might already be fixed with the addition of the .jar build of the game. 
