@@ -11,10 +11,10 @@ public class GameLogic {
 	public Rectangle rectP1;
 	public Rectangle rectCPU;
 
-	public GameLogic() {
+	public GameLogic(PlayerBase p1, PlayerBase cpu) {
+		this.p1 = p1;
+		this.cpu = cpu;
 		points = new Points();
-		p1 = new P1(0, 210, 181);
-		cpu = new CPU(870, 210, 181);
 		ball = new Ball(425, 275, 0, 0);
 		ball.restartBall();
 	}
@@ -27,7 +27,8 @@ public class GameLogic {
 
 		// update CPU paddle position
 		rectCPU = new Rectangle(cpu.posX, cpu.posY, 31, cpu.boardHeight);
-		((CPU) cpu).move(ball.posY);
+
+		cpu.move(ball.posY);
 		rectCPU.setLocation(cpu.posX, cpu.posY);
 
 		// predict ball's next position (for better collision detection)

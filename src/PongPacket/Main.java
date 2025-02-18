@@ -8,8 +8,12 @@ public class Main {
 		System.out.println("Move your board using UP and DOWN arrows on your keyboard.");
 		System.out.println("------------------------------------------------------");
 
+		// create player and CPU objects using PlayerBase references
+		PlayerBase p1 = new P1(0, 210, 181);
+		PlayerBase cpu = new CPU(870, 210, 181);
+
 		// initialization of game logic and graphics
-		GameLogic gameLogic = new GameLogic();
+		GameLogic gameLogic = new GameLogic(p1, cpu);
 		GameGraphics gameGraphics = new GameGraphics(gameLogic);
 
 		// initialization of game frame and its settings
@@ -29,7 +33,7 @@ public class Main {
 //		System.out.println("Content width: " + contentWidth + ", Content height: " + contentHeight);
 
 		frame.add(gameGraphics);
-		frame.addKeyListener(gameLogic.p1);
+		frame.addKeyListener((P1) p1);
 
 		new Thread(() -> {
 			while (true) {

@@ -2,10 +2,16 @@ package PongPacket;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class P1 extends PlayerBase {
+public class P1 extends PlayerBase implements KeyListener{
     public P1 (int posX, int posY, int boardHeight) {
         super(posX, posY, boardHeight);
+    }
+
+    @Override
+    public void move(int ballY) {
+        // P1 is controlled by player; move() doesn't need logic here
     }
 
     @Override

@@ -1,7 +1,6 @@
 package PongPacket;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 public class CPU extends PlayerBase {
     public CPU(int posX, int posY, int boardHeight) {
@@ -11,6 +10,7 @@ public class CPU extends PlayerBase {
     private int movementCooldown = 5; // frames between each move
     private int cooldownCounter = 0; // tracks cooldown
 
+    @Override
     public void move(int ballY) {
         // movement cooldown for simple CPU difficulty handling
         if (cooldownCounter < movementCooldown) {
@@ -38,22 +38,5 @@ public class CPU extends PlayerBase {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void actionPerformed(ActionEvent e) {}
 }
